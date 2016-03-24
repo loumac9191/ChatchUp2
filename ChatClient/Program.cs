@@ -17,7 +17,7 @@ namespace ChatClient
             //server.Login(Environment.UserName);
 
             //Console.WriteLine("Current Users:");
-            //foreach(var user in server.LoggedInUsers)
+            //foreach (var user in server.LoggedInUsers)
             //    Console.WriteLine(user.UserName);
 
             //Console.WriteLine();
@@ -25,10 +25,10 @@ namespace ChatClient
             //Console.WriteLine("Enter '!quit' to disconnect and exit.");
 
             //string message = Console.ReadLine();
-            //while(message != "!quit")
+            //while (message != "!quit")
             //{
             //    message = message.Trim();
-            //    if(!string.IsNullOrEmpty(message))
+            //    if (!string.IsNullOrEmpty(message))
             //        server.SendMessage(message);
             //    message = Console.ReadLine();
             //}
