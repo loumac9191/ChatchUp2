@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ChatDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="chatingUser">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="30" />
+          <Property Name="sign_in_date" Type="date" />
+        </EntityType>
+        <EntityType Name="chatMessage">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="int" Nullable="false" />
+          <Property Name="content" Type="varchar(max)" />
+          <Property Name="post_time" Type="datetime" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__chatMessa__user___0519C6AF">
+          <End Role="chatingUser" Type="Self.chatingUser" Multiplicity="0..1" />
+          <End Role="chatMessage" Type="Self.chatMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chatingUser">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="chatMessage">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChatDataBaseModelStoreContainer">
+          <EntitySet Name="chatingUser" EntityType="Self.chatingUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chatMessage" EntityType="Self.chatMessage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__chatMessa__user___0519C6AF" Association="Self.FK__chatMessa__user___0519C6AF">
+            <End Role="chatingUser" EntitySet="chatingUser" />
+            <End Role="chatMessage" EntitySet="chatMessage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChatDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="chatingUser">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="sign_in_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="chatMessages" Relationship="Self.FK__chatMessa__user___0519C6AF" FromRole="chatingUser" ToRole="chatMessage" />
+        </EntityType>
+        <EntityType Name="chatMessage">
+          <Key>
+            <PropertyRef Name="message_id" />
+          </Key>
+          <Property Name="message_id" Type="Int32" Nullable="false" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="post_time" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="chatingUser" Relationship="Self.FK__chatMessa__user___0519C6AF" FromRole="chatMessage" ToRole="chatingUser" />
+        </EntityType>
+        <Association Name="FK__chatMessa__user___0519C6AF">
+          <End Role="chatingUser" Type="Self.chatingUser" Multiplicity="0..1" />
+          <End Role="chatMessage" Type="Self.chatMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chatingUser">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="chatMessage">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ChatDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="chatingUsers" EntityType="Self.chatingUser" />
+          <EntitySet Name="chatMessages" EntityType="Self.chatMessage" />
+          <AssociationSet Name="FK__chatMessa__user___0519C6AF" Association="Self.FK__chatMessa__user___0519C6AF">
+            <End Role="chatingUser" EntitySet="chatingUsers" />
+            <End Role="chatMessage" EntitySet="chatMessages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChatDataBaseModelStoreContainer" CdmEntityContainer="ChatDataBaseEntities">
+          <EntitySetMapping Name="chatingUsers">
+            <EntityTypeMapping TypeName="ChatDataBaseModel.chatingUser">
+              <MappingFragment StoreEntitySet="chatingUser">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="sign_in_date" ColumnName="sign_in_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chatMessages">
+            <EntityTypeMapping TypeName="ChatDataBaseModel.chatMessage">
+              <MappingFragment StoreEntitySet="chatMessage">
+                <ScalarProperty Name="message_id" ColumnName="message_id" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="post_time" ColumnName="post_time" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
