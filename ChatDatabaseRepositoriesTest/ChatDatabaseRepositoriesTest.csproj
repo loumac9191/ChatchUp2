@@ -62,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="chatingUserRepositoryTest.cs" />
+    <Compile Include="chatMessageRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
